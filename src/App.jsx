@@ -1,74 +1,69 @@
-import { useEffect, useRef, useState } from 'react';
+// Устанавливаем пакеты npm i react-hook-form yup @hookform/resolvers
+
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useEffect, useRef } from 'react';
+import { useForm } from 'react-hook-form';
 
 import styles from './app.module.css';
 import { Field } from './components/field/field';
-import {
-	emailValidator,
-	passwordMinValidator,
-	passwordSymbolValidator,
-} from './validators';
+import { registrationFormSchema } from './registration-form-schema';
 
 export function App() {
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
-	const [passcheck, setPasscheck] = useState('');
-
-	const [isEmailValid, setIsEmailValid] = useState(false);
-	const [isPasswordValid, setIsPasswordValid] = useState(false);
-	const [isPasscheckValid, setIsPasscheckValid] = useState(false);
+	const {
+		register,
+		handleSubmit,
+		trigger,
+		formState: { touchedFields, isValid, errors },
+	} = useForm({
+		defaultValues: {
+			email: '',
+			password: '',
+			passcheck: '',
+		},
+		resolver: yupResolver(registrationFormSchema),
+		mode: 'onTouched',
+	});
 
 	const submitButtonRef = useRef(null);
 
-	const onSubmit = (event) => {
-		event.preventDefault();
+	const onSubmit = ({ email, password }) => {
 		console.log({ email, password });
 	};
 
-	const isFormValid = isEmailValid && isPasswordValid && isPasscheckValid;
-
 	useEffect(() => {
-		if (isFormValid) {
+		if (isValid) {
 			submitButtonRef.current.focus();
 		}
-	}, [isFormValid]);
+	}, [isValid]);
 
 	return (
 		<div className={styles.app}>
 			<h3>Form of registration</h3>
-			<form onSubmit={onSubmit}>
+			<form onSubmit={handleSubmit(onSubmit)}>
 				<Field
 					type="text"
-					name="email"
 					placeholder="email..."
-					value={email}
-					setValue={setEmail}
-					setIsValid={setIsEmailValid}
-					validators={[emailValidator]}
+					error={errors.email?.message}
+					{...register('email')}
 				/>
 				<Field
 					type="password"
-					name="password"
 					placeholder="password..."
-					value={password}
-					setValue={setPassword}
-					setIsValid={setIsPasswordValid}
-					validators={[passwordMinValidator, passwordSymbolValidator]}
+					error={errors.password?.message}
+					{...register('password', {
+						onChange: () => touchedFields.passcheck && trigger('passcheck'),
+					})}
 				/>
 				<Field
 					type="password"
-					name="passcheck"
 					placeholder="password check ..."
-					value={passcheck}
-					setValue={setPasscheck}
-					setIsValid={setIsPasscheckValid}
-					validators={[(value) => (value === password ? null : 'Passwords do not match')]}
-					dependencies={{ password }} // --> Используем объект вместо массива ['password'], так как в объекте имеются наименования поля и значение поля. В массиве - только наименовавние. Здесь для нас нужно именно значение поля
-					forceValidation={(value) => value.length > 0}
+					error={errors.passcheck?.message}
+					{...register('passcheck')}
 				/>
 				<button
 					className={styles.button}
 					type="submit"
-					disabled={!isFormValid}
+					disabled={!isValid}
 					ref={submitButtonRef}
 				>
 					Sign in
