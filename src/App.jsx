@@ -1,5 +1,9 @@
-import { MyTemplate } from './components/MyTemplate';
+import styles from './app.module.css';
 
 export function App() {
-	return <MyTemplate />;
+	return (
+		<>
+			<div className={styles.app}>START</div>
+		</>
+	);
 }
