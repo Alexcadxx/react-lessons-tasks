@@ -1,0 +1,19 @@
+{
+  "todos": [
+    {
+      "id": "2",
+      "title": "It was done 2",
+      "completed": true
+    },
+    {
+      "id": "afc7",
+      "title": "New issue 33",
+      "completed": true
+    },
+    {
+      "id": "8f65",
+      "title": "New issue 44",
+      "completed": false
+    }
+  ]
+}

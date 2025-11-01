@@ -1,4 +1,5 @@
 .todo {
+	display: flex;
 	padding: 10px;
 	border: 1px solid #a8a8a8;
 }
@@ -7,4 +8,11 @@
 	width: 20px;
 	height: 20px;
 	margin: 0 10px 0 0;
+}
+:checked {
+	accent-color: rgb(140, 204, 140);
+}
+.title {
+	width: 100%;
+	margin-right: 10px;
 }
