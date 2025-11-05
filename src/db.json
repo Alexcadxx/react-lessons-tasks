@@ -7,12 +7,12 @@
     },
     {
       "title": "My second task",
-      "completed": false,
+      "completed": true,
       "id": 2
     },
     {
       "title": "Adler task",
-      "completed": false,
+      "completed": true,
       "id": 3
     },
     {
@@ -22,8 +22,18 @@
     },
     {
       "title": "Google task",
-      "completed": false,
+      "completed": true,
       "id": 5
+    },
+    {
+      "title": "Memo resize",
+      "completed": false,
+      "id": 6
+    },
+    {
+      "title": "MyFalke",
+      "completed": false,
+      "id": 7
     }
   ]
 }
