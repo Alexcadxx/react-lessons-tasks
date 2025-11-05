@@ -8,6 +8,8 @@ import { addTodoInTodos, findTodo, removeTodo, setTodoInTodos } from './utils';
 
 export function App() {
 	const [todos, setTodos] = useState([]);
+	const [searchPhrase, setSearchPhrase] = useState('');
+	const [isAlphabetSorting, setIsAlphabetSorting] = useState(false);
 
 	const onTodoAdd = () => {
 		setTodos(addTodoInTodos(todos));
@@ -51,12 +53,18 @@ export function App() {
 	};
 
 	useEffect(() => {
-		readTodos().then((loadedTodos) => setTodos(loadedTodos.reverse()));
-	}, []);
+		readTodos(searchPhrase, isAlphabetSorting).then((loadedTodos) =>
+			setTodos(loadedTodos),
+		);
+	}, [searchPhrase, isAlphabetSorting]);
 
 	return (
 		<div className={styles.app}>
-			<ControlPanel onTodoAdd={onTodoAdd} />
+			<ControlPanel
+				onTodoAdd={onTodoAdd}
+				onSearch={setSearchPhrase}
+				onSorting={setIsAlphabetSorting}
+			/>
 			<div>
 				{todos.map(({ id, title, completed, isEditing = false }) => (
 					<Todo

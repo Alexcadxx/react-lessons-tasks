@@ -1,19 +1,29 @@
 {
   "todos": [
     {
-      "id": "2",
-      "title": "It was done 2",
-      "completed": true
+      "title": "My first task",
+      "completed": true,
+      "id": 1
     },
     {
-      "id": "afc7",
-      "title": "New issue 33",
-      "completed": true
+      "title": "My second task",
+      "completed": false,
+      "id": 2
     },
     {
-      "id": "8f65",
-      "title": "New issue 44",
-      "completed": false
+      "title": "Adler task",
+      "completed": false,
+      "id": 3
+    },
+    {
+      "title": "Yandex task",
+      "completed": false,
+      "id": 4
+    },
+    {
+      "title": "Google task",
+      "completed": false,
+      "id": 5
     }
   ]
 }

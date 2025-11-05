@@ -8,7 +8,11 @@ const fetchServer = (method, { id, ...payload } = {}) => {
 	};
 
 	if (method === HTTP_METHOD.GET) {
-		url += '';
+		const { searchPhrase, isAlphabetSorting } = payload;
+		const sortingParams = isAlphabetSorting
+			? '_sort=title&_order=asc'
+			: '_sort=id&_order=desc';
+		url += `?${sortingParams}&title_like=${searchPhrase}`;
 	} else {
 		if (method !== HTTP_METHOD.POST) {
 			url += `/${id}`;
@@ -23,6 +27,7 @@ const fetchServer = (method, { id, ...payload } = {}) => {
 };
 
 export const createTodo = (newTodo) => fetchServer('POST', newTodo);
-export const readTodos = () => fetchServer('GET');
+export const readTodos = (searchPhrase = '', isAlphabetSorting = false) =>
+	fetchServer('GET', { searchPhrase, isAlphabetSorting });
 export const updateTodo = (todoData) => fetchServer('PATCH', todoData);
 export const deleteTodo = (todoId) => fetchServer('DELETE', { id: todoId });
