@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Button } from '../../../button/button';
+import { Button } from '../../../../components';
 
 import styles from './sorting.module.css';
 
