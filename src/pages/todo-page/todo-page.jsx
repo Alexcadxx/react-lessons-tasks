@@ -25,8 +25,10 @@ export const TodoPage = () => {
 
 	useEffect(() => {
 		readTodo(id).then((loadedTodo) => {
+			// console.log('loadedTodo', loadedTodo.title);
+
 			if (loadedTodo.title === undefined) {
-				navigate('/task');
+				navigate('/task'); // ---> Here route error
 			}
 			setTitle(loadedTodo.title);
 		});
